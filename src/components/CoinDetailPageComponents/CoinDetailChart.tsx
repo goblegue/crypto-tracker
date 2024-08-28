@@ -61,10 +61,24 @@ const CoinDetailChart = (props: any) => {
     const [chartDataState, setChartDataState] = useState<any[]>([])
 
     const fetchDataHandler = async () => {
-        const options = {
-            method: 'GET',
-            headers: {accept: 'application/json', 'x-cg-demo-api-key':process.env.NEXT_PUBLIC_API_KEY}
-          }; 
+        var options: RequestInit;
+        if (process.env.NEXT_PUBLIC_API_KEY) {
+          options = {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+              "x-cg-demo-api-key": process.env.NEXT_PUBLIC_API_KEY,
+            },
+          };
+        } else {
+          options = {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+              "x-cg-demo-api-key": "",
+            },
+          };
+        }
           
         try {
             const response1 = await fetch(
