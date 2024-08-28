@@ -54,6 +54,11 @@ type CryptoCoin = {
 };
 
 const HomeComnponent = () => {
+  const totalItems: number = 150; // Total number of items to paginate
+  const itemsPerPage: number = 25; // Number of items per page
+  const totalPages: number = Math.ceil(totalItems / itemsPerPage); // Calculate total pages
+  const pages: number[] = Array.from({ length: totalPages }, (_, i) => i + 1); // Generate the pages array
+
   const [cryptoData, setCryptoData] = useState<topCoinObj[]>([]); // all coins
   const [filteredArray, setFilteredArray] = useState<topCoinObj[]>([]); // all coins
   const [seacrhTerm, setSearchTerm] = useState("");
@@ -69,8 +74,6 @@ const HomeComnponent = () => {
 
   const [originalARR, setOriginalARR] = useState([]);
   const [tabState, setTabState] = useState("all coins");
-
-  const pages = [1, 2, 3, 4];
 
   const reduxFavouritesARR: any[] = useSelector(
     (state: any) => state.favourites.list
@@ -100,7 +103,7 @@ const HomeComnponent = () => {
   useEffect(() => {
     // all coins
     fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.toLowerCase()}&order=market_cap_desc&per_page=80&page=1&sparkline=false`,
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.toLowerCase()}&order=market_cap_desc&per_page=${totalItems}&page=1&sparkline=false`,
       options
     )
       .then((response) => response.json())
@@ -116,7 +119,7 @@ const HomeComnponent = () => {
 
     // metaverse
     fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.toLowerCase()}&category=metaverse&order=market_cap_desc&per_page=80&page=1&sparkline=false`,
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.toLowerCase()}&category=metaverse&order=market_cap_desc&per_page=${totalItems}&page=1&sparkline=false`,
       options
     )
       .then((response) => response.json())
@@ -271,15 +274,15 @@ const HomeComnponent = () => {
     setCryptoData(sortedData);
   };
 
-    const MyDrawerContent: React.FC<DrawerProps> = ({ children }) => {
-      // Your implementation here
-      return <DrawerContent>{children}</DrawerContent>;
-    };
+  const MyDrawerContent: React.FC<DrawerProps> = ({ children }) => {
+    // Your implementation here
+    return <DrawerContent>{children}</DrawerContent>;
+  };
 
-    const MyDrawerBody: React.FC<DrawerProps> = ({ children }) => {
-      // Your implementation here
-      return <DrawerBody>{children}</DrawerBody>;
-    };
+  const MyDrawerBody: React.FC<DrawerProps> = ({ children }) => {
+    // Your implementation here
+    return <DrawerBody>{children}</DrawerBody>;
+  };
 
   return (
     <div>
@@ -414,7 +417,7 @@ const HomeComnponent = () => {
             <tbody>
               {/* rows */}
               {cryptoData
-                .slice(page * 20 - 20, page * 20)
+                .slice(page * itemsPerPage - itemsPerPage, page * itemsPerPage)
                 .map((coin, index) => (
                   <tr key={coin.id}>
                     <th>
