@@ -77,7 +77,7 @@ const HomeComnponent = () => {
     const dispacth = useDispatch();
     const options = {
         method: 'GET',
-        headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-KAgP3Pnwkx8Dn5ZTt1xaNBJ3'}
+        headers: {accept: 'application/json', 'x-cg-demo-api-key': process.env.NEXT_PUBLIC_API_KEY}
       };
       
 
