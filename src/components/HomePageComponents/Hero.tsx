@@ -35,9 +35,9 @@ const Hero = () => {
                         <div className="heroInnerChild1 flex flex-col gap-4">
                             <div>
                                 <p className='text-4xl interFont font-normal'>
-                                    Middle East Leadger <br />
-                                    in Market and OTC <br />
-                                    transactions
+                                    Find Market Trends <br />
+                                    And Define Your <br />
+                                    Crypto Journey
                                 </p>
                             </div>
 
